@@ -44,4 +44,8 @@ def get_closest_bar(data, longitude, latitude):
 if __name__ == '__main__':
     data = load_data(file)
     get_biggest_bar(data)
+<<<<<<< HEAD
     get_smallest_bar(data)
+=======
+    get_smallest_bar(data)
+>>>>>>> 1b8c6e004dae3706fed9d748b2dbcd4355e70994
