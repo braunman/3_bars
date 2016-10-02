@@ -1,5 +1,6 @@
 import json
 
+# test
 file = "bars.json"
 
 def load_data(filepath):
