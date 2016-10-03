@@ -1,52 +1,34 @@
+# -*- coding: utf-8 -*-
 import json
+from geopy.distance import vincenty
 
-# test
-file = "bars.json"
+data_file = "bars.json"
 
 def load_data(filepath):
     url = 'http://data.mos.ru/opendata/7710881420-bary'
-    with open(file) as data_file:    
+    with open(filepath, encoding="utf8") as data_file:    
         data = json.load(data_file)
     return data
 
 
 def get_biggest_bar(data):
-    print("Самый большой бар:")
-    big = 0 
-    bar = []
-    for i in data:
-        seats = i['Cells']["SeatsCount"]
-        if big <= seats or not big:
-            big = seats
-            bar = i['Cells']
-    print (bar['Name'], bar['Address'], bar['SeatsCount'], 'мест')
+    print("Самый большой бар:\n", max(data, key = lambda x: x['Cells']["SeatsCount"]), end = "\n"*2 )
 
 
 def get_smallest_bar(data):
-    print("Самый маленький бар:")
-    big = None
-    bar = []
-    for i in data:
-        seats = i['Cells']["SeatsCount"]
-        if not big:
-            big = seats
-        if big >= seats:
-            big = seats
-            bar = i['Cells']
-    print (bar['Name'], bar['Address'], bar['SeatsCount'], 'мест')
+    print ("Самый маленький бар:\n", min(data, key = lambda x: x['Cells']["SeatsCount"]), end = "\n"*2 )
 
 
 
 def get_closest_bar(data, longitude, latitude):
-    
-    pass
+    print ("Самый близкий бар:\n", 
+        min(data, key = lambda x: vincenty((longitude, latitude),x['Cells']['geoData']['coordinates']).meters), end = "\n"*2 )
 
 
 if __name__ == '__main__':
-    data = load_data(file)
+    data = load_data(data_file)
     get_biggest_bar(data)
-<<<<<<< HEAD
     get_smallest_bar(data)
-=======
-    get_smallest_bar(data)
->>>>>>> 1b8c6e004dae3706fed9d748b2dbcd4355e70994
+    get_closest_bar(data, 39.635709999611, 55.805575000159)
+
+
