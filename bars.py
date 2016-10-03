@@ -29,6 +29,12 @@ if __name__ == '__main__':
     data = load_data(data_file)
     get_biggest_bar(data)
     get_smallest_bar(data)
-    get_closest_bar(data, 39.635709999611, 55.805575000159)
+    print ("Введите координаты по одной( в формате - 39.635709999611 ):")
+    try:
+        n = float(input("северная широта:"))
+        e = float(input("восточная долгота:"))
+    except:
+        print("Вы ввели что-то не так")
+    get_closest_bar(data, n , e)
 
 
