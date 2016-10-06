@@ -1,1 +1,2 @@
-geopy
+geopy==1.10.0
+requests==2.11.1
