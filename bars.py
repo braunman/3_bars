@@ -31,7 +31,7 @@ if __name__ == '__main__':
     try:
         json_bars_file = sys.argv[1]
         if not os.path.exists(json_bars_file):
-            print("Переданный фаил не существует")
+            print("Переданный файл не существует")
             exit(1)
     except IndexError:
         print ("Вы не передали скрипту файл с барами")
