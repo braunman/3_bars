@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
+import sys
 import json
 from geopy.distance import vincenty
+import os.path
 
-data_file = "bars.json"
-
-def load_data(filepath):
-    url = 'http://data.mos.ru/opendata/7710881420-bary'
-    with open(filepath, encoding="utf8") as data_file:    
-        data = json.load(data_file)
+def load_data():
+    try:
+        with open(sys.argv[1], encoding="utf8") as data_file:    
+            data = json.load(data_file)
+    except IndexError:
+        print ("Вы не передали скрипту файл с барами")
+        exit(1)
+    except FileNotFoundError:
+        print("Переданный фаил не существует")
+        exit(1)
     return data
 
 
@@ -26,15 +32,16 @@ def get_closest_bar(data, longitude, latitude):
 
 
 if __name__ == '__main__':
-    data = load_data(data_file)
+    data = load_data()
     get_biggest_bar(data)
     get_smallest_bar(data)
     print ("Введите координаты по одной( в формате - 39.635709999611 ):")
     try:
-        n = float(input("северная широта:"))
-        e = float(input("восточная долгота:"))
+        northern_latitude = float(input("северная широта:"))
+        eastern_longitude = float(input("восточная долгота:"))
     except:
-        print("Вы ввели что-то не так")
-    get_closest_bar(data, n , e)
+        print("Не верно введены координаты, попробуйте в формате 39.635709999611")
+        exit(1)
+    get_closest_bar(data, northern_latitude , eastern_longitude)
 
 
